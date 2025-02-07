@@ -1,0 +1,75 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: fiap-video-processor
+  main:
+    # Disable the mail sender validator
+    allow-bean-definition-overriding: true
+  mail:
+#    host: ${SPRING_MAIL_HOST:maildev} para rodar no docker
+    host: localhost  # para localhost Em vez de "maildev" ou "fiap-auth-service-maildev"
+    port: ${SPRING_MAIL_PORT:1025}
+    protocol: smtp
+    test-connection: false  # Disable connection testing on startup
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+    verify-server-cert: false
+    debug: true  # Enable debug logging for mail issues
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  profiles:
+    active: dev
+
+  datasource:
+    url: jdbc:postgresql://localhost:5434/fiap-video-processor
+    #    url: jdbc:postgresql://postgres:5432/fiap-video-processor
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+
+aws:
+  #  access-key: ${AWS_ACCESS_KEY_ID}
+  #  secret-key: ${AWS_SECRET_ACCESS_KEY}
+  #  session-token: ${AWS_SESSION_TOKEN}
+  access-key: ASIA6FKUYXRLBDDZ3NTI
+  secret-key: LMpYSWOrqAqez9lqyA3c+uIfSa0k5RzwwhB5xPDU
+  session-token: IQoJb3JpZ2luX2VjEFAaCXVzLXdlc3QtMiJIMEYCIQCe8IZjn7lNvMYjClZWGf2L7tSeICxPgE8BQB2mIZerKAIhAODXFo8mw8iGHpi5DhYvDlRDEJ+/wl/KSP8FmwoGLK8yKq0CCGkQABoMOTczNTI0NzQ1MzAyIgyMOLTZ3ofruTvI6gIqigK5J/wfeAPB0ArWUgkX6uZwCFRdhSo5hk157A1zWDEjwGZc+Im7w0lK5kKkGxPAn92geDQlK104gzr8lQ7zsEYcAIkkNV/2GBLvntjH2DWDxEfPu85Ex/DoVwRNJd5Utv0OBDzavXXF8/NItv7enlKBYcOb4XZtXdL9NwF/YdS2gm30LZBnvv4TLJ10nlYSednnj1RkdI+xDWnjTR7kfuALuqcENQUd+zGK86UES6ZXaIo/k941mSSgsikT12QbZI20TCL0DrDkeKBZZfCbdyRxI2gvwSDfcl3WBI7MetlUPqkGonQKke4Xf8fwsrFpbUFz+DGuKRiFHyybLRcsajyCr2yAmhopWLiQkDD5jpW9BjqcAQ8H6tLB3OK9iQHc1QxyQ+zPmJv8ZD38c9syPDqMlYAbJPiJp2lhl60adMLYx200gbFCqcjltRS5TmhO3VG6LGPxmexXCekjwSiMCxF+DI+LoZsWsXsxxBS3QaQjhxV+GNH1oKBH4OIb35e0+Die58nk/u7vDcw/A72R1h+qlTKQ2KlRzscdl4O7oIWlrh7KGKA0byKD/9rnq1PjjQ==
+  region: us-east-1
+  sqs:
+    queueUrl: https://sqs.us-east-1.amazonaws.com/973524745302/fiap-video-queue
+    dlqUrl: https://sqs.us-east-1.amazonaws.com/973524745302/fiap-video-dlq
+  sns:
+    topicArn: arn:aws:sns:us-east-1:973524745302:fiap-video-topic
+  s3:
+    bucketName: fiap-video-upload  # Nome do seu bucket S3
+
+jwt:
+  secret: pkaAJSvAscjFHe/eFbcXfkHZvTw/GgQKnSk7GS9Ug9v8CX6aY6MnyNe5hbprYedic1x3w6OvIV7jkBx9cXd6Tg==
+  expiration: 3600000 # 1 hour
+
+cloud:
+  aws:
+    region:
+      static: REGION # Exemplo: us-east-1
+    credentials:
+      access-key: YOUR_ACCESS_KEY
+      secret-key: YOUR_SECRET_KEY

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fiap-video-processor
+  namespace: fiap-video-processor
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8082        # Porta do serviço no Kubernetes
+      targetPort: 8082  # Porta interna do container
+      nodePort: 30082   # Porta exposta na máquina host (para acesso externo)
+  selector:
+    app: fiap-video-processor

@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "f8811018-ff3b-4af7-8d29-e451d98bf3fd",
+		"name": "2 - FIAP Video Processor Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4092831"
+	},
+	"item": [
+		{
+			"name": "Upload Video",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwtToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "rick-boasvindasmp4.mp4"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/videos/upload",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"videos",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download ZIP",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwtToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/videos/download/:videoId",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"videos",
+						"download",
+						":videoId"
+					],
+					"variable": [
+						{
+							"key": "videoId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Video Status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwtToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/videos/status/:videoId",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"videos",
+						"status",
+						":videoId"
+					],
+					"variable": [
+						{
+							"key": "videoId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Videos Status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwtToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/videos/status/user/:userId",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"videos",
+						"status",
+						"user",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8084",
+			"type": "default"
+		},
+		{
+			"key": "jwtToken",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBmaWFwLmNvbSIsInVzZXJJZCI6Ijk3OTIzMGUxLTdlNjItNGUwYi1hOTM5LTJjMmM5ODdlODhhMSIsInJvbGVzIjpbIlVTRVIiXSwiaWF0IjoxNzM4ODk0OTQxLCJleHAiOjE3Mzg4OTg1NDF9.qhyFRNEZFkobCT6wjKf_JZJvGR0LpMYRJ3ybE0HCN1cBzSwExgZfE0qptLdC8QSU7wWqT8Krp2JEHZV6Hx3Drw",
+			"type": "string"
+		}
+	]
+}

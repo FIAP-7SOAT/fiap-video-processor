@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+  namespace: fiap-video-processor
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard # Ensure this matches the PVC's storage class
+  hostPath:
+    path: /mnt/data/postgres # This path is specific to the host machine

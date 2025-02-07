@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  postgres-fiap-video-processor:
+    image: postgres:13.3-alpine
+    container_name: postgres-fiap-video-processor
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_DB=fiap-video-processor
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    volumes:
+      - ./src/main/resources/sql_scripts/:/docker-entrypoint-initdb.d
+    networks:
+      - fiap-db-network
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+
+  fiap-video-processor:
+    container_name: fiap-video-processor
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    depends_on:
+      postgres-fiap-video-processor:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-fiap-video-processor:5432/fiap-video-processor
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - AUTH_SERVICE_URL=http://fiap-auth-service-app:8081
+      - SPRING_MAIL_HOST=maildev  # Nome correto do MailDev na rede compartilhada
+      - SPRING_MAIL_PORT=1025
+    networks:
+      - fiap-db-network
+      - fiap-shared-network  # Garantindo que MailDev esteja acessível nessa rede
+
+networks:
+  fiap-db-network:
+    external: true
+  fiap-shared-network:
+    external: true

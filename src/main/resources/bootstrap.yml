@@ -1,0 +1,10 @@
+spring:
+  application.name: fiap-video-processor
+  config.activate.on-profile: dev,prod
+  main.banner-mode: off
+  cloud:
+    config:
+      enabled: false
+      fail-fast: false
+      name: ${spring.application.name}
+
