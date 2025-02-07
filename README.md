@@ -1,5 +1,3 @@
-Aqui está um exemplo completo do arquivo README para o projeto `fiap-video-processor`, incluindo detalhes sobre a arquitetura hexagonal, boas práticas, vantagens, e um fluxo da aplicação com imagem ilustrativa:
-
 ---
 
 # FIAP Video Processor
