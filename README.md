@@ -8,7 +8,7 @@ O `fiap-video-processor` é uma API desenvolvida para processar vídeos, extrair
 
 ## Arquitetura
 
-A arquitetura desta API `fiap-video-processor` é baseada na **Arquitetura Hexagonal** (também conhecida como Arquitetura de Portos e Adaptadores). As principais vantagens desta abordagem incluem:
+A arquitetura desta API `fiap-video-processor` é baseada na **Arquitetura Hexagonal** (também conhecida como Arquitetura de Portas e Adaptadores). As principais vantagens desta abordagem incluem:
 
 - **Desacoplamento**: Facilita a substituição de componentes sem impacto significativo no restante da aplicação.
 - **Testabilidade**: A separação das responsabilidades torna os componentes mais fáceis de testar.
