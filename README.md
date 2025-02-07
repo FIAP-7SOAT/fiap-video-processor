@@ -67,6 +67,93 @@ A API `fiap-video-processor` segue o seguinte fluxo:
 
 ![Diagrama](/docs/img/diagrama.png)
 
+
+## Endpoints da Aplicação
+
+### Autenticação
+
+- **POST /auth/login**
+  - Autentica o usuário e retorna um token JWT.
+  - **Corpo da Requisição**:
+    ```json
+    {
+      "username": "seu-usuario",
+      "password": "sua-senha"
+    }
+    ```
+  - **Resposta**:
+    ```json
+    {
+      "token": "jwt-token-aqui"
+    }
+    ```
+
+### Upload de Vídeo
+
+- **POST /api/videos/upload**
+  - Faz upload de um vídeo.
+  - **Cabeçalhos**:
+    - `Authorization: Bearer {{jwtToken}}`
+  - **Corpo da Requisição (multipart/form-data)**:
+    - `file`: Arquivo de vídeo a ser enviado.
+  - **Resposta** (classe `VideoUploadResponse`):
+    ```json
+    {
+      "message": "Upload successful",
+      "videoId": "uuid-do-video"
+    }
+    ```
+
+### Consulta de Status
+
+- **GET /api/videos/status/{videoId}**
+  - Consulta o status do processamento de um vídeo específico.
+  - **Cabeçalhos**:
+    - `Authorization: Bearer {{jwtToken}}`
+  - **Resposta** (classe `VideoDetailsResponse`):
+    ```json
+    {
+      "videoId": "uuid-do-video",
+      "fileName": "nome-do-arquivo",
+      "status": "PROCESSING", // ou "COMPLETED", "FAILED"
+      "createdAt": "yyyy-MM-dd'T'HH:mm:ss",
+      "updatedAt": "yyyy-MM-dd'T'HH:mm:ss"
+    }
+    ```
+
+- **GET /api/videos/status/user/{userId}**
+  - Obtém a lista de status de todos os vídeos do usuário.
+  - **Cabeçalhos**:
+    - `Authorization: Bearer {{jwtToken}}`
+  - **Resposta**:
+    ```json
+    [
+      {
+        "videoId": "uuid-do-video-1",
+        "fileName": "nome-do-arquivo-1",
+        "status": "COMPLETED",
+        "createdAt": "yyyy-MM-dd'T'HH:mm:ss",
+        "updatedAt": "yyyy-MM-dd'T'HH:mm:ss"
+      },
+      {
+        "videoId": "uuid-do-video-2",
+        "fileName": "nome-do-arquivo-2",
+        "status": "PROCESSING",
+        "createdAt": "yyyy-MM-dd'T'HH:mm:ss",
+        "updatedAt": "yyyy-MM-dd'T'HH:mm:ss"
+      }
+    ]
+    ```
+
+### Download do Conteúdo Processado
+
+- **GET /api/videos/download/{videoId}**
+  - Faz o download do arquivo .zip com as imagens extraídas.
+  - **Cabeçalhos**:
+    - `Authorization: Bearer {{jwtToken}}`
+  - **Resposta**:
+    - Arquivo .zip
+
 ## Tecnologias Utilizadas
 
 - **Linguagem**: Kotlin
